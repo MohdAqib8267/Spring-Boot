@@ -77,3 +77,28 @@ management.endpoints.web.exposure.include=*
 management.endpoint.info.enabled=false
 ```
 For check beans go to url: http://localhost:8080/actuator/beans
+
+# Spring Bean Life Cycle
+
+![Screenshot 2024-12-25 224042](https://github.com/user-attachments/assets/5298d53a-da42-4776-a0ed-556ed0117683)
+
+**We can Customize the Nature of Bean In Lifecycle**
+- 1.Interface to customize bean: (Old)
+-   a) InitializingBean: This is an interface which contains method public void afterPropertiesSet() . we need to implement this and perform action that you want. 
+-   b) DisposableBean: This is an interface which contains method public void destroy() . we need to implement this and perform action that you want. 
+- 2. @PostConstruct & @PreDestroy (New)
+  ```
+  @PostContruct
+  public void init(){ // call after beans injected 
+    System.out.println("PostConstructCall"); 
+  }
+  @PreDestroy
+   public void destory(){ // call before destorye beans
+    System.out.println("PostConstructCall"); 
+  }
+  ```
+  after customization, bean life cycle
+  ![Screenshot 2024-12-25 224042](https://github.com/user-attachments/assets/4f17cdb5-fce6-4581-9e7f-f368c495eb54)
+
+  ```
+  
