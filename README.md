@@ -199,3 +199,56 @@ public class PaymentProcess{
 }
 ```
 Output: Processing credit card payment of 100.0
+
+**@Primary:** Primary annotation is used to specify the default bean to injected when multiple beans of the same type exist in the Spring container, and no specific qualifier is provided.
+
+It helps resolve the ambiguity of which bean to inject when using the @Autowired annotation.
+
+**How @Primary Solves the Problem**
+
+The @Primary annotation marks one of the beans as the default bean. When no @Qualifier is used, Spring will inject the @Primary bean.
+
+Example: Imagine you have multiple implementations of a service interface:
+
+**Interface**
+```
+public interface PaymentService{
+  void processPayment(double amount);
+}
+```
+CreditCardPaymentService.java
+```
+@Component
+public class CreditCardPaymentService implements PaymentService {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing credit card payment of " + amount);
+    }
+}
+```
+PayPalPaymentService.java
+```
+@Component
+@Primary // Default implementation: so if qualifier is not present then it will be injected bydefault:
+public class PayPalPaymentService implements PaymentService {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing PayPal payment of " + amount);
+    }
+}
+```
+PaymentProcessor.java
+```
+@Component
+public class PaymentProcessor {
+
+    @Autowired
+    private PaymentService paymentService; // Injects the `PayPalPaymentService` by default
+
+    public void pay(double amount) {
+        paymentService.processPayment(amount);
+    }
+}
+```
+Output: Processing PayPal payment of 100.0
+
