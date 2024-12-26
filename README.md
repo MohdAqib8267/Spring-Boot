@@ -274,7 +274,7 @@ In Spring Boot, we can use the @ConditionalOnProperty annotation to conditionall
      Here, FeatureXService is instantiated only when feature.x.enabled is set to true.
   
 - 3. matchIfMissing: Imagine you want a bean to be instantiated by default(like name value and havingValue is not matched, but we want it creates by default) unless explicitly turned off:
-     ```
+    ```
      feature.y.enabled=false
     ```
     ```
@@ -283,10 +283,11 @@ In Spring Boot, we can use the @ConditionalOnProperty annotation to conditionall
   public class FeatureYService {
       //... Your service methods
   }
-   ```
-   In this scenario, if feature.y.enabled is not defined in the properties file, the bean will still be created due to matchIfMissing = true. However, in our example property, since it's explicitly set to false, the bean will not be created.
+    ```
+In this scenario, if feature.y.enabled is not defined in the properties file, the bean will still be created due to matchIfMissing = true. However, in our example property, since it's explicitly set to false, the bean will not be created.
 
 - 4. prefix: For a configuration with a shared prefix, e.g.,
+  
      ```
      app.feature.z.enabled=true
      ```
