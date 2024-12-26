@@ -138,3 +138,64 @@ public MyBean mySessionBean() {
     return new MyBean();
 }
 ```
+## @Qualifier and @Primary Annotation 
+
+**@Qualifier:** @Qualifier annotation is used to resolve ambiguity problem, when multiple beans of same type exist in container. It allows us to specify which bean to inject in situations where the @Autowired annotation alone cannot decide which bean to use.
+
+**How @Qualifier Solves the Problem**
+The @Qualifier annotation allows you to specify which exact bean should be injected by its name.
+
+Example: Imagine a scenario where we have multiple implementations of an interface, such as:
+```
+public interface PaymentService {
+    void processPayment(double amount);
+}
+```
+
+```
+@Component("creditCardPayment")
+public class CreditCardPaymentService implements PaymentService{
+  @Override
+  public void processPayment(double amount){
+    System.out.println("Payment processed by credit card: "+amount);
+ }
+}
+```
+
+```
+@Component("paypalPayment")
+public class PayPalPaymentService implements PaymentService{
+  @Override
+  public void processPayment(double amount){
+    System.out.println("Payment processed by Paypal: "+amount);
+ }
+}
+```
+**Usage Without @Qualifier:**
+```
+@Component
+public class PaymentProcess{
+  @Autowired
+  private PaymentService paymentService; // Ambiguity: Which PaymentService to inject?
+  
+   public void pay(double amount) {
+        paymentService.processPayment(amount);
+    }
+}
+```
+Output: gives error, which beasn should be called?
+
+**Usage With @Qualifier:**
+```
+@Component
+public class PaymentProcess{
+  @Autowired
+  @Qualifier("creditCardPayment") // Explicitly choose the CreditCardPaymentService
+  private PaymentService paymentService; 
+  
+   public void pay(double amount) {
+        paymentService.processPayment(amount);
+    }
+}
+```
+Output: Processing credit card payment of 100.0
