@@ -101,4 +101,40 @@ For check beans go to url: http://localhost:8080/actuator/beans
   ![Screenshot 2024-12-25 224042](https://github.com/user-attachments/assets/4f17cdb5-fce6-4581-9e7f-f368c495eb54)
 
   ```
-  
+## Spring Boot Bean Scope and it's type
+Bean scopes define how a bean's lifecycle and visibility are managed within a container.
+
+**Type:** Generally beans are 6 types, but here we will consider only 4.
+
+**1.Singleton (Default):** Only one instance is created of beans and shared with all references of that beans. and ths is a default scope.
+
+or 
+
+When we define a bean with the singleton scope, the container creates a single instance of that bean; all requests for that bean name will return the same object, which is cached. Any modifications to the object will be reflected in all references to the bean. This scope is the default value if no other scope is specified.
+
+**1.Prototype:** A new instance of the bean is created every time it is requested.
+```
+@Bean
+@Scope("prototype")
+public MyBean myPrototypeBean() {
+    return new MyBean();
+}
+```
+**3.Request (For Web Applications)**
+A new instance of the bean is created for each HTTP request.
+```
+@Bean
+@Scope("request")
+public MyBean myRequestBean() {
+    return new MyBean();
+}
+```
+**4.Session (For Web Applications)**
+A single instance of the bean is created for an HTTP session.
+```
+@Bean
+@Scope("session")
+public MyBean mySessionBean() {
+    return new MyBean();
+}
+```
