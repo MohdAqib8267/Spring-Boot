@@ -252,3 +252,76 @@ public class PaymentProcessor {
 ```
 Output: Processing PayPal payment of 100.0
 
+## @ConditionalOnProperty
+In Spring Boot, we can use the @ConditionalOnProperty annotation to conditionally register the beans based on the property value in the application.properties or application.yml file.
+
+**@ConditionalOnProperty** generally contains 4 attributes:
+- 1. name: for Basic Matching
+- 2. havingValue: check **name** value is matched to **havingValue**, if matched then bean are registered.
+
+    application.properties
+     ```
+     feature.x.enabled=true
+     ```
+     Your service class with the basic match will look like
+     ```
+     @Component
+    @ConditionalOnProperty(name = "feature.x.enabled", havingValue = "true")
+    public class FeatureXService {
+        //... Your service methods
+    }
+    ```
+     Here, FeatureXService is instantiated only when feature.x.enabled is set to true.
+  
+- 3. matchIfMissing: Imagine you want a bean to be instantiated by default(like name value and havingValue is not matched, but we want it creates by default) unless explicitly turned off:
+     ```
+     feature.y.enabled=false
+    ```
+    ```
+    @Component
+  @ConditionalOnProperty(name = "feature.y.enabled", matchIfMissing = true)
+  public class FeatureYService {
+      //... Your service methods
+  }
+   ```
+   In this scenario, if feature.y.enabled is not defined in the properties file, the bean will still be created due to matchIfMissing = true. However, in our example property, since it's explicitly set to false, the bean will not be created.
+
+- 4. prefix: For a configuration with a shared prefix, e.g.,
+     ```
+     app.feature.z.enabled=true
+     ```
+     ```
+     @Component
+    @ConditionalOnProperty(prefix = "app.feature", name = "z.enabled", havingValue = "true")
+    public class FeatureZService {
+        //... Your service methods
+    }
+     ```
+**Example: Real-world Scenarios**
+
+Imagine a system that integrates with various third-party services, like payment gateways, message brokers, or notification services. Depending on the deployment environment or client preferences, certain services might be enabled or disabled. Using the @ConditionalOnProperty annotation, developers can easily turn on or off these services based on the configuration properties.
+
+**Conditional Configuration for Database Beans**
+
+Imagine you have two types of databases, and you wish to switch between them based on a property:
+```
+database.type=MYSQL
+```
+You can conditionally load beans as:
+```
+@Configuration
+public class DatabaseConfig {
+
+    @Bean
+    @ConditionalOnProperty(name = "database.type", havingValue = "MYSQL")
+    public DatabaseService mySqlDatabaseService() {
+        return new MySqlDatabaseService();
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "database.type", havingValue = "MONGODB")
+    public DatabaseService mongoDatabaseService() {
+        return new MongoDatabaseService();
+    }
+}
+```
