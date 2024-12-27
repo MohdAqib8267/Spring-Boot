@@ -326,3 +326,69 @@ public class DatabaseConfig {
     }
 }
 ```
+## Profiles
+Spring Boot Profiles provide developers with a powerful way to manage environment-specific configurations. Whether you’re in development, testing, or production. This feature simplifies deployment scenarios and enhances flexibility.
+
+**Without profiling, developers need to:**
+- Manually switch configurations for each environment.
+- Use conditional logic within the code, which is error-prone and unmanageable.
+
+**You can define profiles in:**
+- Property files (e.g., application-dev.properties)
+- YAML files (e.g., application.yml)
+
+By default, Spring Boot activates the default profile(application.properties) if no other exist.
+
+**Defining profiles**
+
+Profiles can be defined using property files(application.properties) or YAML files. For example, you might have an **application-dev.properties** file for your development environment and an **application-prod.properties** file for your production environment. To activate a profile, you can set the **spring.profiles.active** property in your **application.properties** file:
+```
+spring.profile.active=dev
+```
+This will activate the dev profile, and Spring Boot will load the **application-dev.properties.**
+
+**Note:** When you define the “spring.profiles.active” property in your “application.properties” file, Spring Boot will still load that file as well as the properties file specific to the active profile. This means that any properties defined in the “application.properties” file will be overridden by properties defined in the active profile’s properties file if they have the same key.
+
+Example:
+> Create a **application.properties** file in your src/main/resources directory, containing the **default database** configuration:
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/myapp
+spring.datasource.username=myappuser
+spring.datasource.password=myapppassword
+```
+
+> Add another properties file named **application-dev.properties** in the same directory, containing the configuration for the **development database**:
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/myapp_dev
+spring.datasource.username=myappuser_dev
+spring.datasource.password=myapppassword_dev
+```
+
+> Create a third properties file named **application-prod.properties** in the same directory, containing the configuration for the **production database**:
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/myapp_prod
+spring.datasource.username=myappuser_prod
+spring.datasource.password=myapppassword_prod
+```
+> To use specific profile, In your application.properties file, add the following line to indicate which profiles should be active:
+
+```
+spring.profiles.active=dev
+```
+> Now, using this, my **application-dev.properties** configuration will be used, and is same key exist in parent file **application.properties**, it will be override.
+
+```
+  public class DBConnection{
+  @Value("${spring.datasource.url}")
+  String username;
+  @Value("${spring.datasource.password}")
+  String password;
+
+  @PostConstruct
+  public void init(){
+    System.out.println("Username: "+username+" | "+"Password: "+password);
+  }
+}
+```
+> Output: Username: myappuser_dev | Password: myapppassword_dev
