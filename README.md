@@ -392,3 +392,9 @@ spring.profiles.active=dev
 }
 ```
 > Output: Username: myappuser_dev | Password: myapppassword_dev
+
+**But here we need to change application.property file manually, we can do it dynamically by 2 ways.**
+
+- 1.if application is startup using command
+- > run command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
+- 2.Add profiles in pom.xml file and run command: mvn spring-boot:run -Pprod
