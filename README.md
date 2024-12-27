@@ -398,3 +398,74 @@ spring.profiles.active=dev
 - 1.if application is startup using command
 - > run command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
 - 2.Add profiles in pom.xml file and run command: mvn spring-boot:run -Pprod
+  ```
+  <build>
+  </build>
+  <profiles>
+    <profile>
+      <id>local</id>
+      <spring-boot.run.profiles>dev</spring-boot.run.profiles>
+    </profile>
+    <profile>
+      <id>production</id>
+      <spring-boot.run.profiles>prod</spring-boot.run.profiles>
+    </profile>
+  </profiles>
+  ```
+Note: IntelleJ give option **Active Profiles** in which we can give dev or prod.
+
+**@Profile Annotation:** Using profile annotation we can tell spring boot, to create a bean only when perticular profile is set.
+
+EmailService.java Interface
+```
+public interface EmailService {
+    void sendEmail(String recipient, String message);
+}
+```
+Developement implementation
+```
+@Component
+@Profile("dev") // Bean is only active in the "dev" profile
+public class DevEmailService implements EmailService {
+    @Override
+    public void sendEmail(String recipient, String message) {
+        System.out.println("Logging email: To=" + recipient + ", Message=" + message);
+    }
+}
+```
+Producton implementation
+```
+@Component
+@Profile("prod") // Bean is only active in the "prod" profile
+public class ProdEmailService implements EmailService {
+    @Override
+    public void sendEmail(String recipient, String message) {
+        // Actual email sending logic
+        System.out.println("Sending email: To=" + recipient + ", Message=" + message);
+    }
+}
+```
+Dependent Class
+```
+@Component
+public class NotificationService{
+  private final EmailService emailService;
+  @Autowired
+  public NotificationService(EmailService emailService){
+    this.emailService = emailService;
+  }
+  public void notifyUser(String recipient, String message){
+    emailService.sendEmail(recipient,message);
+  }
+}
+```
+**Setting Active Profile:**
+
+- 1.For development:
+  > spring.profiles.active=dev
+  Now only **DevEmailService** bean will be create and call.
+- 2.For Production
+  > spring.profiles.active=prod
+  Now only **ProdEmailService** bean will be create and call.
+
+ Note: we can set profiles dynamically, like above using pom.xml or command line or through IDE at runtime.
