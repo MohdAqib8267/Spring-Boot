@@ -469,3 +469,65 @@ public class NotificationService{
   Now only **ProdEmailService** bean will be create and call.
 
  Note: we can set profiles dynamically, like above using pom.xml or command line or through IDE at runtime.
+
+
+## Exception Handling in Spring Boot: @ExceptionHandler & @ControllerAdvice
+To Handle exception in convenient and effective manner and reduced code repeatation, we have used a centralized approach to handle all type of exception using ExceptionHandler and ControllerAdvice annotation.
+
+- No need to use general try-catch approch
+
+**Example:**
+> ProductController.java
+  ```
+   @GetMapping("/product/{id}")
+	 public ResponseEntity<?> getProductById(@PathVariable int id) {
+	     Product product = productService.findProductById(id)
+	                .orElseThrow(() -> new ProductNotFoundException("Product not found with this id: " + id));
+	     return ResponseEntity.status(HttpStatus.FOUND).body(product);
+	 }
+  ```
+because we have create a custom exception **ProductNotFoundException**, so let's create this in Exception>ProductNotFoundException.java
+```
+package com.security.exception;
+
+public class ProductNotFoundException extends RuntimeException{
+		
+	public ProductNotFoundException(String message) {
+		super(message);
+	}
+}
+```
+> create a GlobalExceptionHandler inside controller
+```
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(ProductNotFoundException.class) // whenever ProductNotFoundException thrown by any controller, it will detected here. 
+	public ResponseEntity<?> handleProductNotFoundException(ProductNotFoundException exception){
+		ErrorResponse error = new ErrorResponse(LocalDateTime.now(),exception.getMessage(),"Product Not Found");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+	
+	@ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+	public ResponseEntity<?> handleArrayIndexOutOfBoundException(ArrayIndexOutOfBoundsException exception){
+		 ErrorResponse productNotFound = new ErrorResponse(LocalDateTime.now(), exception.getMessage(), "Product Not Found");
+	     return new ResponseEntity<>(productNotFound, HttpStatus.NOT_FOUND);
+	}
+}
+```
+**@RestControllerAdvice** is a convenience annotation to creates a global exception handler for RESTful web services: 
+- It's a combination of the @ControllerAdvice and @ResponseBody annotations 
+- It's used to return a JSON or XML response in case of an exception 
+- It allows you to implement logic once, instead of duplicating it across the app
+
+**@ExceptionHandler** annotation to handle exceptions thrown by a specific controller method.
+
+> model>ErrorResponse.java
+```
+public class ErrorResponse {
+	private LocalDateTime timestamp;
+	private String message;
+    private String details;
+//setter and getter...
+```
