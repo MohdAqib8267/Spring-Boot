@@ -548,3 +548,18 @@ To move forward, first we need to understand **what is ThreadPool?**
 
 
 <img width="563" alt="image" src="https://github.com/user-attachments/assets/5b51ef28-f766-4a69-8dad-368261b94595" />
+
+Now Understand **Async Annotation**
+
+- 1. Used to mark method that should run asynchronously.
+  2. Runs in a new Thread, without blocking main Thread.
+
+ <img width="714" alt="image" src="https://github.com/user-attachments/assets/a190a5f8-b77a-4c3b-ac7c-b9b2a55419ce" />
+ <img width="623" alt="image" src="https://github.com/user-attachments/assets/878824eb-3424-4432-8fe6-db76aa82e69f" />
+ <img width="662" alt="image" src="https://github.com/user-attachments/assets/2c7c64a3-3b3c-4d6f-b200-ed1962eb0517" />
+ ![Uploading image.png…]()
+
+
+
+
+
