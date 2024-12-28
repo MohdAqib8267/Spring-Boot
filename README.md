@@ -531,3 +531,7 @@ public class ErrorResponse {
     private String details;
 //setter and getter...
 ```
+## Asynchronous Programming in Spring Boot
+To move forward, first we need to understand **what is ThreadPool?**
+
+<img width="563" alt="image" src="https://github.com/user-attachments/assets/384b1980-15f6-4e9f-898d-35db56b53ee3" />
