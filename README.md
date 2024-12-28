@@ -546,4 +546,5 @@ To move forward, first we need to understand **what is ThreadPool?**
 > - task7->Thread4
 > - now Threads reached to max pool size and all threads are busy, now if new task is comes, it will be rejected untill a Thread is free.
 
-<img width="563" alt="image" src="https://github.com/user-attachments/assets/593cf9eb-2705-4c20-83d0-5ad71a7f53e6" />
+
+<img width="563" alt="image" src="https://github.com/user-attachments/assets/5b51ef28-f766-4a69-8dad-368261b94595" />
