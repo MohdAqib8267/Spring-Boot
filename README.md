@@ -535,3 +535,13 @@ public class ErrorResponse {
 To move forward, first we need to understand **what is ThreadPool?**
 
 <img width="563" alt="image" src="https://github.com/user-attachments/assets/384b1980-15f6-4e9f-898d-35db56b53ee3" />
+<img width="563" alt="image" src="https://github.com/user-attachments/assets/7b5e20fe-69b5-47b0-8d94-4b2e4263ca11" />
+
+> here suppose we have min pool size=3, max pool size=4 and Queue size=3
+> task1->Thread1
+> task2->Thread2
+> Now minimum Thread pool is fulled, now further tasks will goes into queue untill it full(here task3,task4,task5 goes into queue)
+> once it full, now new thread is create because we have max pool size = 4, and assign it to new task
+> task6->Thread3
+> task7->Thread4
+> now Threads reached to max pool size and all threads are busy, now if new task is comes, it will be rejected untill a Thread is free.
