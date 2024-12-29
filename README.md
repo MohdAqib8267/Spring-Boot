@@ -554,9 +554,9 @@ Now Understand **Async Annotation**
 - 1. Used to mark method that should run asynchronously.
   2. Runs in a new Thread, without blocking main Thread.
 
- <img width="662" alt="image" src="https://github.com/user-attachments/assets/a190a5f8-b77a-4c3b-ac7c-b9b2a55419ce" />
- <img width="662" alt="image" src="https://github.com/user-attachments/assets/878824eb-3424-4432-8fe6-db76aa82e69f" />
- <img width="662" alt="image" src="https://github.com/user-attachments/assets/2c7c64a3-3b3c-4d6f-b200-ed1962eb0517" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/a190a5f8-b77a-4c3b-ac7c-b9b2a55419ce" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/878824eb-3424-4432-8fe6-db76aa82e69f" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/2c7c64a3-3b3c-4d6f-b200-ed1962eb0517" />
 <img width="662" alt="image" src="https://github.com/user-attachments/assets/67fe8259-d46a-4c36-8d29-474c033d4f0b" />
 <img width="662" alt="image" src="https://github.com/user-attachments/assets/2922101f-370d-401a-83b6-316fe9681d1e" />
 <img width="662" alt="image" src="https://github.com/user-attachments/assets/709eaa3a-0072-4dc1-84f8-962e2fe2cf64" />
@@ -576,8 +576,22 @@ So That's why never used default configuration of Thread pool.
 <img width="662" alt="image" src="https://github.com/user-attachments/assets/f79faee6-0b86-4895-a7ae-0c3aba783910" />
 <img width="662" alt="image" src="https://github.com/user-attachments/assets/dcfb56a9-caa6-4014-bd2d-df1ada17883e" />
 
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/9959a431-e232-442b-b6c9-0b98f827b24d" />
+
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/14c69338-11d8-4dc5-bc8f-3e5f57bf834f" />
+
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/35dd0ab6-554b-4710-85fe-589f0fc69f7d" />
+So whenever use ThreadPoolExecutor(java) need to use pool name otherwise it will pick SimpleAsyncTaskExecuter or if we dont want to specify name we need to use ThreadPoolTaskExecutor.
+
+SimpleAsyncTaskExecuter is not recommeded.
+
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/0c752541-d8b0-4944-898b-68016b0b3f44" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/298b1ad5-5750-4242-81e3-f212d1d8e078" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/ac6f7093-ab03-425a-bdbd-3bc3ce9535fe" />
 
 
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/d08e67af-ce9f-43a2-8647-729495109dcf" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/32b6fde8-e984-467f-8f4b-5bb1541044e7" />
 
 
 
