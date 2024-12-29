@@ -611,20 +611,20 @@ now, Future has been decrepted. CompletableFuture is enhanced version of this(Ja
 			Method which has Return Type					Method which do not have return type
 
 ```
-<img width="358" alt="image" src="https://github.com/user-attachments/assets/9da3f791-744f-4ecc-8992-e3a7a869c706" />
-<img width="490" alt="image" src="https://github.com/user-attachments/assets/e2b73244-d619-4287-a959-4466e78c1f48" />
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/9da3f791-744f-4ecc-8992-e3a7a869c706" />
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/e2b73244-d619-4287-a959-4466e78c1f48" />
 so, How to handle it??
 
 we have 2 options to handle this.
 
-<img width="364" alt="image" src="https://github.com/user-attachments/assets/516c6d04-b48e-41ab-97d6-acfdb31ce685" />
-<img width="559" alt="image" src="https://github.com/user-attachments/assets/01287496-0129-4e69-8766-396fa870011c" />
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/516c6d04-b48e-41ab-97d6-acfdb31ce685" />
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/01287496-0129-4e69-8766-396fa870011c" />
 
 but how we did this?
 
 Because spring framework have code, we have just override it.
-<img width="448" alt="image" src="https://github.com/user-attachments/assets/dfa0c29e-e078-4019-8084-f94a39ca22ab" />
-<img width="497" alt="image" src="https://github.com/user-attachments/assets/718a77d8-51b0-48f9-8528-c0a4571efbaa" />
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/dfa0c29e-e078-4019-8084-f94a39ca22ab" />
+<img width="550" alt="image" src="https://github.com/user-attachments/assets/718a77d8-51b0-48f9-8528-c0a4571efbaa" />
 
 
 
