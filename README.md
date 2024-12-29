@@ -591,7 +591,46 @@ SimpleAsyncTaskExecuter is not recommeded.
 
 
 <img width="662" alt="image" src="https://github.com/user-attachments/assets/d08e67af-ce9f-43a2-8647-729495109dcf" />
-<img width="662" alt="image" src="https://github.com/user-attachments/assets/32b6fde8-e984-467f-8f4b-5bb1541044e7" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/32b6fde8-e984-467f-8f4b-5bb1541044e7" /> This is wrong way of doing it, correct way is, @Async method should be in different class and should be public. becuase here AOP is involved, and AOP wants both conditions.
+
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/0451fa43-db99-4d06-9225-a09ed89c3990" />
+means suppose, if something wrong happens in updateUser method, it will be rollback but updateUserBalanace would not roll back becuase it is in a new Thread. and Transaction context is not transfer to a new thread.
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/f856b04b-0ba5-4c58-b1bc-c15df33b2dc9" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/5a0d1e80-88a8-4c37-8df7-a3e2021c5f31" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/de4c0a38-f91b-4780-bfac-c210677977d1" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/586d0bae-14c4-492d-a0eb-b90596e0908e" />
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/628286b3-79aa-466d-aff0-514dddd3ca1e" />
+
+now, Future has been decrepted. CompletableFuture is enhanced version of this(Java 8).
+<img width="662" alt="image" src="https://github.com/user-attachments/assets/19cef066-6b24-4654-a8ce-74d0ecd1ecfe" />
+
+```
+			                               Exception Handling
+								|
+				|------------------------------------------------------------------|
+			Method which has Return Type					Method which do not have return type
+
+```
+<img width="358" alt="image" src="https://github.com/user-attachments/assets/9da3f791-744f-4ecc-8992-e3a7a869c706" />
+<img width="490" alt="image" src="https://github.com/user-attachments/assets/e2b73244-d619-4287-a959-4466e78c1f48" />
+so, How to handle it??
+
+we have 2 options to handle this.
+
+<img width="364" alt="image" src="https://github.com/user-attachments/assets/516c6d04-b48e-41ab-97d6-acfdb31ce685" />
+<img width="559" alt="image" src="https://github.com/user-attachments/assets/01287496-0129-4e69-8766-396fa870011c" />
+
+but how we did this?
+
+Because spring framework have code, we have just override it.
+<img width="448" alt="image" src="https://github.com/user-attachments/assets/dfa0c29e-e078-4019-8084-f94a39ca22ab" />
+<img width="497" alt="image" src="https://github.com/user-attachments/assets/718a77d8-51b0-48f9-8528-c0a4571efbaa" />
+
+
+
+
+
+
 
 
 
