@@ -649,6 +649,14 @@ In AOP, an "aspect" is a concern that cuts across multiple methods or classes, s
        declaratively.
 - **Around Advice (@Around):** This is the most important and powerful advice. This advice surrounds the join point method and we can also choose whether to execute the join point method or not.
 
+so, How AOP Intercept, see below Chart and look hoe proxy is involved
+<img width="467" alt="image" src="https://github.com/user-attachments/assets/7a257885-a853-4af0-a881-ba24f113b173" />
+
+There are 2 types of proxies: 
+
+- **1. JDK proxie:** Spring AOP defaults to using standard JDK dynamic proxies for AOP proxies. This enables any interface (or set of interfaces) to be proxied.(In simple work for Interfaces)
+- **2. CGLIB proxie:** Spring AOP can also use CGLIB proxies. This is necessary to proxy classes rather than interfaces. By default, CGLIB is used if a business object does not implement an interface.
+- 
 **Example:**
 
 Suppose we have an class Alien which contains some moethods, in which a method to get All Aliens, below
