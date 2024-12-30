@@ -704,4 +704,61 @@ public class LoggingAspect{
 	}
 }
 ```
+**PointCut Designator:**
+
+**1. execution**
+Matches method execution joinpoints based on method signature.
+```
+execution(* com.example.service.*.*(..))
+```
+Matches any method in the com.example.service package.
+
+**2. within**
+```
+within(com.example.service..*)
+```
+Matches all methods within classes in the com.example.service package and its sub-packages.
+
+**3. this**
+Matches joinpoints where the target object is of a specific type.
+```
+this(com.example.MyService)
+```
+Matches joinpoints in the proxy implementing MyService.
+
+**4. target**
+Matches joinpoints where the target object is of a specific type (actual implementation class).
+```
+target(com.example.MyService)
+```
+Matches joinpoints in the target object of type MyService.
+
+**5. args**
+Matches joinpoints where method arguments match specified types.
+```
+args(java.lang.String, int)
+```
+Matches methods with arguments of type String and int.
+
+**6.@annotation**
+Matches joinpoints where the target method is annotated with a specific annotation.
+```
+@annotation(com.example.MyAnnotation)
+```
+Matches methods annotated with @MyAnnotation.
+
+**7.@within**
+Matches joinpoints where the class is annotated with a specific annotation.
+```
+@within(com.example.MyAnnotation)
+```
+Matches methods in classes annotated with @MyAnnotation.
+
+**8. @target**
+Matches joinpoints where the target class is annotated with a specific annotation.
+```
+@target(com.example.MyAnnotation)
+```
+
+By combining these designators, you can create powerful and flexible rules to specify where your advice should be applied.
 
