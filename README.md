@@ -626,11 +626,28 @@ Because spring framework have code, we have just override it.
 <img width="550" alt="image" src="https://github.com/user-attachments/assets/dfa0c29e-e078-4019-8084-f94a39ca22ab" />
 <img width="550" alt="image" src="https://github.com/user-attachments/assets/718a77d8-51b0-48f9-8528-c0a4571efbaa" />
 
+## Spring AOP
+Spring AOP (Aspect-Oriented Programming) allows you to separate cross-cutting concerns (aspects) from the core business logic of an application.
+
+In AOP, an "aspect" is a concern that cuts across multiple methods or classes, such as logging or transaction management. AOP allows you to define such concerns in separate classes, without modifying the business logic code.
+
+**Key concepts in Spring AOP:**
+
+- **Aspect:** A module that encapsulates a cross-cutting concern. It contains advice and pointcuts.
+- **Joinpoint:** A point in the execution of the program where an aspect can be applied, typically a method execution.
+- **Advice:** The action taken by an aspect at a specific joinpoint. Types of advice include before, after, around, throwing, and finally, please take a look below.
+- **Pointcut:** A predicate that matches joinpoints. It defines when and where an advice should be applied.
+- **Weaving:** The process of applying aspects to a target object. Weaving can be done at compile-time, load-time, or runtime.
 
 
+**Advice Types Below**
 
-
-
+- **Before Advice (@Before):** These advices runs before the execution of join point methods. 
+- **After (finally) Advice (@After):** An advice that gets executed after the join point method finishes executing, whether normally or by throwing an exception. 
+- **After Returning Advice (@AfterReturning)**: Sometimes we want advice methods to execute only if the join point method executes normally. 
+- **After Throwing Advice (@AfterThrowing):** This advice gets executed only when join point method throws exception, we can use it to rollback the transaction 
+       declaratively.
+- **Around Advice (@Around):** This is the most important and powerful advice. This advice surrounds the join point method and we can also choose whether to execute the join point method or not.
 
 
 
