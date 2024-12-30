@@ -649,5 +649,51 @@ In AOP, an "aspect" is a concern that cuts across multiple methods or classes, s
        declaratively.
 - **Around Advice (@Around):** This is the most important and powerful advice. This advice surrounds the join point method and we can also choose whether to execute the join point method or not.
 
+**Example:**
 
+Suppose we have an class Alien which contains some moethods, in which a method to get All Aliens, below
+```
+@GetMapping("/aliens")
+public List<Aliens>getAliens(){
+	System.out.println("Start fetching to all aliens"); //loggin statement, which is not related to bussiness logic. so insted of here we can handle this into log using AOP
+	List<Aliens> aliens = repo.findAll(); // buissness logic
+	return aliens;
+}
+```
+LoggingAspect.java
+```
+@Component
+@Aspect
+public class LoggingAspect{
+	@Before("execution(* com.example.controller.HomeController.getAliens(..))") //(..) -> means, any type argument and it's call before the method call
+	public void log(){
+		System.out.println("Start fetching to all aliens");
+	}
+
+	@After("execution(* com.example.controller.HomeController.getAliens(..))") // call After the method call, wheter it gives result or exception
+	public void log(){
+		System.out.println("completed...");
+	}
+	// we can intercept accordingly, exaple, @Before("execution(* com.example.controller.HomeController.*(..))")--> now it will be call for all methods inside HomeController
+
+	@Around("execution(* com.example.controller.HomeController.getAliens(..))") // we call before and after of a method
+	public Object log(ProceedingJoinPoint joinPoint) thorws Throwable{
+		System.out.println("started....");
+
+		//method->jointpoint call
+		Object result = joinPoint.proceed(); // here jointpoint method will be call after that below log work
+		System.out.println("Completed....");
+		return result;
+	}
+	
+	@AfterReturning("execution(* com.example.controller.HomeController.getAliens(..))") // call After method return correclty
+	public void log(){
+		System.out.println("call...");
+	}
+	@AfterThrowing("execution(* com.example.controller.HomeController.getAliens(..))") // call After method return Exception
+	public void log(){
+		System.out.println("call...");
+	}
+}
+```
 
