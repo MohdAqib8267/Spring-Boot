@@ -764,6 +764,11 @@ By combining these designators, you can create powerful and flexible rules to sp
 
 ## Transaction
 
+![IMG-20250101-WA0003](https://github.com/user-attachments/assets/5f87cd9f-1fb0-4165-bf65-85248aecdfa3)
+
+> Note: Remaining Handwritten Notes below,(end of the Transaction) please look at once:
+
+
 **How to Perform Transaction Management in Spring Boot?**
 
 Transaction management in spring boot is super easy using the **Transaction** annotation.
@@ -871,4 +876,51 @@ Spring provides multiple propagation options to control how transactions interac
 public void methodA() {
     // Joins the current transaction or creates a new one
 }
+
+// all used similaryly
+// @Transactional(propagation = Propagation.REQUIRES_NEW)
+//@Transactional(propagation = Propagation.NESTED)
+// @Transactional(propagation = Propagation.NOT_SUPPORTED)
 ```
+
+**What are @Transactional Isolation Levels Used for?**
+
+it determines how much a transaction can see and be affected by changes made by other concurrent transactions. In Spring Boot, transaction isolation is defined using the isolation attribute of the @Transactional annotation.
+
+generally 4 types of Isolation level: 
+
+**1.ISOLATION_READ_UNCOMMITTED:**
+This isolation level allows a transaction to read data written by other transactions that have not yet been committed. This can lead to dirty reads, where a transaction reads data later rolled back by another transaction.
+
+**2.ISOLATION_READ_COMMITTED (Default isolation level):**
+This isolation level ensures that a transaction can only read data that other transactions have committed. This prevents dirty reads but does not prevent non-repeatable reads or phantom reads.
+
+**3.ISOLATION_REPEATABLE_READ:**
+This isolation level ensures that a transaction will always read the same data, even if other transactions are modifying that data concurrently. This prevents dirty reads and non-repeatable reads but does not prevent phantom reads.
+
+**4.ISOLATION_SERIALIZABLE:**
+This isolation level provides the highest isolation level, ensuring that transactions are executed in a serializable order. This prevents dirty reads, non-repeatable reads, and phantom reads.
+
+When you declare your transactional method, you can specify the isolation level you want to use by setting the isolation attribute of the @Transactional annotation. For example:
+```
+@Transactional(isolation = Isolation.ISOLATION_REPEATABLE_READ)
+public void doSomething() {
+// transactional method code
+}
+```
+
+**Readonly vs Read-Write Transaction**
+
+The readOnly attribute of the @Transactional annotation in Spring can indicate that a transaction should be read-only, meaning that it will not attempt to modify the database in any way. This can be useful for optimizing the performance of your application because read-only transactions can often be executed more quickly than transactions that modify the database.
+```
+@Transactional(readOnly = true)
+public void doSomething() {
+// transactional method code
+}
+```
+
+![IMG-20250101-WA0002](https://github.com/user-attachments/assets/ae8f763a-587a-44f6-b168-e572a1b0cb0d)
+![IMG-20250101-WA0004](https://github.com/user-attachments/assets/61cf8445-4be2-4857-ba72-620656176e4f)
+![IMG-20250101-WA0005](https://github.com/user-attachments/assets/55c5e79d-475d-427b-b824-c0719d73d7a4)
+
+![IMG-20250101-WA0006](https://github.com/user-attachments/assets/6c0a5848-f313-408b-b4db-9a8d23de9094)
