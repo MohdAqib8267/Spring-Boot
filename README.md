@@ -762,3 +762,113 @@ Matches joinpoints where the target class is annotated with a specific annotatio
 
 By combining these designators, you can create powerful and flexible rules to specify where your advice should be applied.
 
+## Transaction
+
+**How to Perform Transaction Management in Spring Boot?**
+
+Transaction management in spring boot is super easy using the **Transaction** annotation.
+
+Two ways we can perform a transaction in spring boot are:
+
+- 1.Declarative
+- 2.Programmatic
+
+Both work, but declarative transactions are simple to work with.
+
+**Declarative Transaction**
+
+Declarative transactions involve separating the transactional logic from the business logic of your application. You do not have to write explicit code to handle transactions. Instead, you can use annotations  or XML configuration to declare which methods should be executed within a transaction.
+
+we can apply **@Transactional** annotation on method level or class level.
+> Example
+```
+@Transactional
+public void updateUserData(Long userId, String data) {
+    User user = userRepository.findById(userId);
+    user.setData(data);
+    userRepository.save(user);
+}
+```
+In this example, the updateUserData() method is annotated with @Transactional, which means that the data update operation will be executed within a transaction. If any exceptions are thrown during the execution of this method, the transaction will be rolled back, and the data will not be saved to the database.
+
+Overall, declarative transactions make it easier to write transactional code in your Spring Boot application and help to ensure that your data is consistent and properly managed.
+
+and best example is sending money to another account should be transactional.
+
+**Programmatic Transaction**
+
+The Spring Framework provides two means of programmatic transaction management, by using:
+
+The **TransactionTemplate**(Recommended) or TransactionalOperator.
+
+A **TransactionManager** implementation directly.
+
+**Using the TransactionTemplate**
+
+It uses a callback approach. TransactionTemplate resembles the next example. You, as an application developer, can write a TransactionCallback implementation (typically expressed as an anonymous inner class) that contains the code that you need to run in the context of a transaction. You can then pass an instance of your custom TransactionCallback to the execute(..) method exposed on the TransactionTemplate. The following example shows how to do so:
+
+```
+public class SimpleService implements Service {
+
+	// single TransactionTemplate shared amongst all methods in this instance
+	private final TransactionTemplate transactionTemplate;
+
+	// use constructor-injection to supply the PlatformTransactionManager
+	public SimpleService(PlatformTransactionManager transactionManager) {
+		this.transactionTemplate = new TransactionTemplate(transactionManager); //PlatformTransactionManager: PlatformTransactionManager is a core Spring interface that provides programmatic control over transaction management in a Spring application. It abstracts the underlying transaction management mechanism, such as JPA, JDBC, Hibernate, or JTA,
+	}
+	
+	public Object someServiceMethod() {
+		return transactionTemplate.execute(new TransactionCallback() {
+			// the code in this method runs in a transactional context
+			public Object doInTransaction(TransactionStatus status) {
+				updateOperation1();
+				return resultOfUpdateOperation2();
+			}
+		});
+	}
+}
+```
+If there is no return value, you can use the convenient TransactionCallbackWithoutResult class with an anonymous class, as follows:
+```
+transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+	protected void doInTransactionWithoutResult(TransactionStatus status) {
+		updateOperation1();
+		updateOperation2();
+	}
+});
+```
+**Spring Transaction Abstractions**
+
+Spring Framework's declarative transaction support is enabled via AOP proxies. Whenever the caller invokes a method or class with @Transactional annotation, it first invokes a proxy that uses a TransactionInterceptor in conjunction with an appropriate PlatformTransactionManager implementation to drive transactions around method invocations.
+
+Conceptually, calling a method on a transactional proxy looks like this.
+<img width="395" alt="image" src="https://github.com/user-attachments/assets/c05d746c-e89a-417b-8a69-ede6e8819309" />
+
+**What are @Transactional Propagation**
+
+Transaction propagation determines how a new transaction is started when a method marked with the @Transactional annotation is called from within another @Transactional method. 
+
+> Spring Transaction Propagation Types
+
+Spring provides multiple propagation options to control how transactions interact when one transactional method calls another.
+| **Propagation Type**     | **Description**                                                                                           |
+|---------------------------|-----------------------------------------------------------------------------------------------------------|
+| `REQUIRED`               | This is the default propagation level. If a transaction already exists when the method is called, that transaction will be used. Otherwise, a new transaction will be started.                   |
+| `REQUIRES_NEW`           | This propagation level always starts a new transaction, regardless of whether a transaction already exists. The existing transaction, if any, will be suspended until the new transaction is completed.                      |
+| `SUPPORTS`               | This propagation level will use an existing transaction if one exists, but it will not start a new transaction if none exists.                   |
+| `NOT_SUPPORTED`          | This propagation level will never start a new transaction and will run the method without a transaction. If a transaction already exists, it will be suspended until the method has been completed.  |
+| `MANDATORY`              | Throws an exception if called without an existing transaction.                                       |
+| `NEVER`                  | Does not support transactions; throws an exception if a transaction exists.                              |
+| `NESTED`                 | Executes within a nested transaction if a current transaction exists; otherwise behaves like `REQUIRED`. |
+
+
+> Examples of Propagation
+
+**1. `REQUIRED`**
+```
+@Transactional(propagation = Propagation.REQUIRED)
+public void methodA() {
+    // Joins the current transaction or creates a new one
+}
+```
